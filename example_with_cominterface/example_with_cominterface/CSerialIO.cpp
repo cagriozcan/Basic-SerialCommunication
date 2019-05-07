@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "CSerialIO.h"
 #include "SerialThread.h"
-#include <future>
 
 
 CSerialIO::CSerialIO() : m_strPortName("COM1"), m_strBaudRate("115200"), m_sendSize(0)
@@ -35,8 +34,7 @@ CSerialIO:: ~CSerialIO()
 }
 BOOL CSerialIO::Init()
 {
- 	m_serialProcess->setOwner(this);
-	//auto fut = std::async(std::launch::async, &SerialThread::Run, m_serialProcess);
+ 	m_serialProcess->setOwner(this);	
 	m_run_thread = std::thread(&SerialThread::Run, m_serialProcess);
 
 	m_DCB.ByteSize = 8;
@@ -92,8 +90,7 @@ BOOL CSerialIO::Init()
 	default:
 		break;
 	}
-	m_bProccessActivate = TRUE;
-	//m_serialProcess->ResumeThread();
+	m_bProccessActivate = TRUE;	
 	return TRUE;
 
 }
@@ -103,7 +100,7 @@ void CSerialIO::UnInit()
 	if (m_serialProcess)
 	{
 		m_serialProcess->ClosePort();
-		//m_serialProcess->SuspendThread();
+		m_run_thread.~thread;
 	}
 }
 void CSerialIO::OpenPort(std::string strPortName, std::string strBaudRate)
@@ -137,7 +134,6 @@ void CSerialIO::OnEventClose(BOOL bSuccess)
 void CSerialIO::OnEventRead(char *inPacket, int inLength)
 {
 	strcpy_s(m_readingdata, inPacket);
-	//printf("Receiving data is :%c", &m_readingdata);
 	std::cout << "Receiving data is :" << m_readingdata << std::endl;
 
 	return;

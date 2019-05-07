@@ -46,7 +46,6 @@ BOOL SerialCtrl::OpenPort(DCB dcb, const char * portName)
 		// Get current configuration of serial communication port.
 		if (GetCommState(m_portHandle, &m_portConfig) == 0)
 		{
-			//AfxMessageBox("Get configuration port has problem.");
 			std::cout << "Get configuration port has problem." << std::endl;
 			return FALSE;
 		}
@@ -59,7 +58,6 @@ BOOL SerialCtrl::OpenPort(DCB dcb, const char * portName)
 		// Set current configuration of serial communication port.
 		if (SetCommState(m_portHandle, &m_portConfig) == 0)
 		{
-			//AfxMessageBox("Set configuration port has problem.");
 			std::cout << "Set configuration port has problem." << std::endl;
 			return FALSE;
 		}
@@ -145,7 +143,7 @@ BOOL SerialCtrl::Read(char * inputData, const unsigned int & sizeBuffer, unsigne
 		&length,                 // pointer to number of bytes read
 		NULL) == 0)              // pointer to structure for data
 	{
-		// AfxMessageBox("Reading of serial communication has problem.");
+		std::cout << "Reading of serial communication has problem." << std::endl;
 		return FALSE;
 	}
 	if (length > 0)
@@ -164,8 +162,8 @@ BOOL SerialCtrl::Write(const char * outputData, const unsigned int & sizeBuffer,
 			outputData,              // pointer to data to write to file
 			sizeBuffer,              // number of bytes to write
 			&length, NULL) == 0)      // pointer to number of bytes written
-		{
-			//AfxMessageBox("Reading of serial communication has problem.");
+		{			
+			std::cout << "Reading of serial communication has problem." << std::endl;
 			return FALSE;
 		}
 		
@@ -180,8 +178,8 @@ BOOL SerialCtrl::ClosePort(void)
 	{
 		m_portStatus = FALSE;                 // Update status
 		if (CloseHandle(m_portHandle) == 0)    // Call this function to close port.
-		{
-			//AfxMessageBox("Port Closeing isn't successed.");
+		{			
+			std::cout << "Port Closeing isn't successed." << std::endl;
 			return FALSE;
 		}
 		return TRUE;

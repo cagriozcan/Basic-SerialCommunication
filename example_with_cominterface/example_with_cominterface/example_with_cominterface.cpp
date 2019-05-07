@@ -10,13 +10,9 @@
 
 int main()
 {
-	//SerialCtrl *SerialCntr = new SerialCtrl();
-
-
 
 	std::string comname, baudrate;
 	std::string send_message;
-
 
 	std::cout << "Please enter SerialPort Name : !\n";
 	std::cin >> comname;
@@ -33,9 +29,6 @@ int main()
 	
 	CSerialIO *serialIO = new CSerialIO();
 	serialIO->OpenPort(comname, baudrate);
-
-	//CSerialIO *serialIO = new CSerialIO(comname, baudrate);
-
 
 	while (1) 
 	{

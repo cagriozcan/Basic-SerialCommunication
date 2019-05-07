@@ -7,7 +7,7 @@ class CSerialIO;
 
  class SerialThread 
 {
-public:			//bence Encapsulation gerekli
+public:			//TODO: Encapsulation gerekli???
 
 	SerialThread();               // Constructor.
 	virtual ~SerialThread();       // Destructor.
