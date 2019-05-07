@@ -10,8 +10,7 @@
 
 int main()
 {
-	SerialCtrl *SerialCntr = new SerialCtrl();
-	CSerialIO *serialIO = new CSerialIO();
+	//SerialCtrl *SerialCntr = new SerialCtrl();
 
 
 
@@ -31,17 +30,19 @@ int main()
 	unsigned long length;
 
 	length = send_message.size();
-	//SerialCntr->OpenPort(baudrate.c_str(), comname.c_str());
-	//SerialCntr->Write(send_message.c_str(), length, length);
+	
+	CSerialIO *serialIO = new CSerialIO();
 	serialIO->OpenPort(comname, baudrate);
+
+	//CSerialIO *serialIO = new CSerialIO(comname, baudrate);
+
 
 	while (1) 
 	{
 	serialIO->Write(const_cast<char*>(send_message.c_str()), send_message.size());
-		
 	}
 
-	SerialCntr->ClosePort();
+	serialIO->ClosePort();
 
 	getchar();
 

@@ -13,6 +13,18 @@ CSerialIO::CSerialIO() : m_strPortName("COM1"), m_strBaudRate("115200"), m_sendS
 	m_bClosePort = FALSE;
 	Init();
 }
+
+CSerialIO::CSerialIO(std::string strPrtName, std::string strBaudRate) : m_strPortName(strPrtName), m_strBaudRate(strBaudRate), m_sendSize(0)
+{
+	m_serialProcess = new SerialThread();
+	m_bProccessActivate = FALSE;
+	m_bPortActivate = FALSE;
+	m_bSendActivate = FALSE;
+	m_bClosePort = FALSE;
+	Init();
+	this->OpenPort(strPrtName, strBaudRate);
+}
+
 CSerialIO:: ~CSerialIO()
 {
 	if (m_serialProcess)
@@ -124,6 +136,9 @@ void CSerialIO::OnEventClose(BOOL bSuccess)
 }
 void CSerialIO::OnEventRead(char *inPacket, int inLength)
 {
+	strcpy_s(m_readingdata, inPacket);
+	//printf("Receiving data is :%c", &m_readingdata);
+	std::cout << "Receiving data is :" << m_readingdata << std::endl;
 
 	return;
 }

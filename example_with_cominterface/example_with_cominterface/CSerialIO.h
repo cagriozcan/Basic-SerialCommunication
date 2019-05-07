@@ -17,7 +17,7 @@ public:
 	virtual void OnEventOpen(BOOL bSuccess);// handle the event whether the port is successfully opened 
 	void ClosePort();//close serial port
 	virtual void OnEventClose(BOOL bSuccess);//handle the event whether the port is successfully closed
-	virtual void OnEventRead(char *inPacket, int inLength);// handle the received data from serial
+	virtual void OnEventRead(char *inPacket, int inLength);// her okuma islemi gerceklestiginde bu fonksiyon cagirilir
 	void Write(char *outPacket, int outLength);// write data directly 
 	virtual void OnEventWrite(int nWritten); //return how many bytes has been written
 
@@ -30,6 +30,7 @@ public:
 
 	DCB m_DCB;
 	char m_sendBuffer[MAX_SEND_BUFFER];
+	char m_readingdata[MAX_SEND_BUFFER];
 	unsigned int m_sendSize;
 	std::string	m_strPortName;
 	BOOL m_bClosePort;
@@ -43,4 +44,6 @@ private:
 	BOOL m_bPortActivate;
 	BOOL m_bSendActivate;
 	std::string	m_strBaudRate;
+	//constructor
+	CSerialIO(std::string strPrtName, std::string strBaudRate);
 };
