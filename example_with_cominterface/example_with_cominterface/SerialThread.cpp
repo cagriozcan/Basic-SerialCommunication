@@ -4,7 +4,6 @@
 
 const unsigned short MAX_MESSAGE = 300;
 
-//IMPLEMENT_DYNCREATE(SerialThread, CWinThread)
 SerialThread::SerialThread() :m_serialIO(NULL)
 {
 
